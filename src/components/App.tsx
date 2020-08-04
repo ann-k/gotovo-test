@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import { Meal } from './../types'
-import './../stylesheets/App.css'
 
 import Form from './Form'
 import Auth from './Auth'
@@ -50,7 +49,7 @@ function App() {
       <div className='App'>
         <Switch>
           <Route path='/auth'>
-            <Auth updateUser={updateUser} />
+            <Auth updateUser={updateUser} user={user}/>
           </Route>
           <Route path='/create'>
             <Form createOrUpdateMeal={createOrUpdateMeal} action={'create'} />

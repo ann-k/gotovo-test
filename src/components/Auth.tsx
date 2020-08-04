@@ -12,6 +12,7 @@ declare global {
 
 interface CustomProps {
   updateUser: (e: any) => void;
+  user: boolean;
 }
 
 const Auth: React.FC<CustomProps> = (props) => {
@@ -67,21 +68,35 @@ const Auth: React.FC<CustomProps> = (props) => {
     })
   }
 
+  const signOut = () => {
+    fb.auth().signOut().then(function() {
+      console.log('Sign-out successful.')
+    }).catch(function(error) {
+      console.log('An error happened.' + error)
+    })
+  }
+
   return (
     <div className='Auth Form'>
       <button id='specialBtn'><Link to='/'>×</Link></button>
 
-      <form onSubmit={(e) => onSignInSubmit(e)}>
-        <label>Номер телефона</label>
-        <input type='tel' name='tel' ref={phoneNumberRef}></input>
-        <div ref={captchaRef}></div>
-        <button className={phoneNumberFormDisabled ? 'disabled' : ''} type='submit' value='submit'>Получить код</button>
-      </form>
-      <form className={codeFormDisabled ? 'disabled' : ''} onSubmit={(e) => getCodeFromUserInput(e)}>
-        <label>Код</label>
-        <input type='number' name='code'></input>
-        <button type='submit' value='submit'>Готово</button>
-      </form>
+      <div className={props.user ? 'disabled' : ''}>
+        <form onSubmit={(e) => onSignInSubmit(e)}>
+          <input type='tel' name='tel' ref={phoneNumberRef} placeholder='+7 (900) 000 00 00'></input>
+          <div ref={captchaRef}></div>
+          <button className={phoneNumberFormDisabled ? 'disabled' : ''} type='submit' value='submit'>Получить код</button>
+        </form>
+
+        <form className={codeFormDisabled ? 'disabled' : ''} onSubmit={(e) => getCodeFromUserInput(e)}>
+          <label>Введите код из СМС</label>
+          <input type='number' name='code' placeholder='Код'></input>
+          <button type='submit' value='submit'>Готово</button>
+        </form>
+      </div>
+
+      <div className={props.user ? '' : 'disabled'}>
+        <button onClick={signOut}>Выйти</button>
+      </div>
     </div>
   )
 }
