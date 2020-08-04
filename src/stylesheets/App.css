@@ -1,0 +1,84 @@
+.App {
+  text-align: center;
+}
+
+.HomeButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 80vw;
+  margin: 20px auto 0;
+}
+
+.Meal {
+  border: 1px solid lightgrey;
+  width: 80vw;
+  margin: 0 auto 20px;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: left;
+}
+
+.Meal button {
+  font-size: 12px;
+}
+
+.Form {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100vw;
+  text-align: left;
+  padding: 32px 16px 16px;
+  margin: auto;
+}
+
+.Form label, .Form input, .Form select {
+  display: block;
+  width: 100%;
+}
+
+.Form input, .Form select {
+  margin-bottom: 16px;
+}
+
+.Form button {
+  margin-bottom: 16px;
+}
+
+.Form button[type=submit] {
+  width: 100%;
+}
+
+.Form #closeBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+/* TODO: put media queries in a separate file */
+
+@media only screen and (min-width: 600px) {
+  .Meal {
+    width: 50vw;
+  }
+  .Form {
+    width: 80vw;
+  }
+}
+
+@media only screen and (min-width: 1040px) {
+  .HomeButtons {
+    position: fixed;
+    width: 100vw;
+    margin: 0;
+    padding: 0 20px;
+  }
+  .Meal {
+    width: 30vw;
+  }
+  .Form {
+    width: 50vw;
+  }
+}

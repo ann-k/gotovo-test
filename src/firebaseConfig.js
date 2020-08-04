@@ -11,14 +11,7 @@ const firebaseConfig = {
   measurementId: "G-WYLWWHDH96"
 }
 
-// class Firebase {
-//   constructor() {
-//     firebase.initializeApp(firebaseConfig)
-//     // this.db = db;
-//   }
-// }
-
 firebase.initializeApp(firebaseConfig)
 
-const db = firebase.firestore()
-export default db
+const fb = firebase
+export default fb

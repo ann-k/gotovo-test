@@ -3,14 +3,14 @@ import fb from 'firebase';
 type FieldRef = fb.firestore.DocumentReference;
 
 export interface Category {
-  id?: string;
-  kind?: string;
-  title?: string;
+  id: string;
+  kind: string;
+  title: string;
   description?: string;
-  order?: number;
-  slider?: boolean;
-  active?: boolean;
-  hidden?: boolean;
+  order: number;
+  slider: boolean;
+  active: boolean;
+  hidden: boolean;
 }
 
 export enum MealKind {
@@ -38,15 +38,15 @@ export enum MealState {
   archive = 'archive',
 }
 
-// export const MealStateToRu: {
-//   [key: string]: string;
-//   } = {
-//   draft: 'черновик',
-//   elaborating: 'в проработке',
-//   elaborated: 'проработано',
-//   public: 'паблик',
-//   archive: 'архив',
-// };
+export const MealStateToRu: {
+  [key: string]: string;
+  } = {
+  draft: 'черновик',
+  elaborating: 'в проработке',
+  elaborated: 'проработано',
+  public: 'паблик',
+  archive: 'архив',
+};
 
 export type Meal = Partial<{
   id: string;
