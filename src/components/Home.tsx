@@ -53,7 +53,7 @@ const Home: React.FC<CustomProps> = (props) => {
         </button>
 
         <button>
-          <Link to='/auth'>Войти</Link>
+          <Link to='/auth'>{props.user ? 'Выйти' : 'Войти'}</Link>
         </button>
       </nav>
 
@@ -63,7 +63,6 @@ const Home: React.FC<CustomProps> = (props) => {
             <h2 className='Title'>{category.title}</h2>
             {meals.filter(meal => true) // TODO: Filter meals by categories
               .map((meal, index) => {
-                // TODO: Get image link from uploadecare with uuid
                 return (
                   <div className='Meal' key={index}>
                     <picture>
