@@ -31,7 +31,7 @@ function App() {
         value: e.target.measureValue.value,
       },
       emoji: e.target.emoji.value,
-      uploadcareId: activeMeal.uploadcareId,
+      uploadcareId: activeMeal.uploadcareId || '',
       kind: e.target.kind.value,
       state: e.target.state.value,
     }
