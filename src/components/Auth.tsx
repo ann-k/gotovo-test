@@ -82,14 +82,14 @@ const Auth: React.FC<CustomProps> = (props) => {
 
       <div className={props.user ? 'disabled' : ''}>
         <form onSubmit={(e) => onSignInSubmit(e)}>
-          <input type='tel' name='tel' ref={phoneNumberRef} placeholder='+7 (900) 000 00 00'></input>
+          <input type='tel' name='tel' ref={phoneNumberRef} placeholder='+7 (900) 000 00 00' />
           <div ref={captchaRef}></div>
           <button className={phoneNumberFormDisabled ? 'disabled' : ''} type='submit' value='submit'>Получить код</button>
         </form>
 
         <form className={codeFormDisabled ? 'disabled' : ''} onSubmit={(e) => getCodeFromUserInput(e)}>
           <label>Введите код из СМС</label>
-          <input type='number' name='code' placeholder='Код'></input>
+          <input type='number' name='code' placeholder='Код' />
           <button type='submit' value='submit'>Готово</button>
         </form>
       </div>

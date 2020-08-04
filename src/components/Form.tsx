@@ -4,45 +4,27 @@ import { Widget } from '@uploadcare/react-widget'
 
 import { Meal } from './../types'
 import './../stylesheets/Form.css'
-import fb from './../firebaseConfig'
-const db = fb.firestore()
 
 interface CustomProps {
-  createOrUpdateMeal: (e: any, activeMealId: string, uploadcareId: string) => void;
-  action: string;
+  createOrUpdateMeal: (e: any, activeMeal: Meal) => void;
+  meals?: Meal[];
 }
 
 const Form: React.FC<CustomProps> = (props) => {
-  const [placeholder, setPlaceholder] = useState<Meal>({})
-  const [activeMealId, setActiveMealId] = useState<string>('')
-  const [uploadcareId, setUploadcareId] = useState<string>('')
+  const [activeMeal, setActiveMeal] = useState<Meal>({})
   const closeRef = useRef<HTMLAnchorElement>(null)
-  const { mealTitle } = useParams()
-
-  const getPlaceholders = async () => {
-    const snapshot = await db.collection('meals').where('title', '==', mealTitle).get()
-    if (snapshot.empty) {
-      console.log('No matching documents.')
-      return
-    }
-
-    snapshot.forEach(doc => {
-      setPlaceholder(doc.data())
-      setActiveMealId(doc.id)
-    })
-  }
+  const { mealId } = useParams()
 
   const handleSubmit = (e: any) => {
-    props.createOrUpdateMeal(e, activeMealId, uploadcareId)
+    props.createOrUpdateMeal(e, activeMeal)
     if (closeRef.current instanceof HTMLAnchorElement) closeRef.current.click()
   }
 
-  const getUploadcareId = (file: any) => {
-    setUploadcareId(file.uuid)
-  }
-
   useEffect(() => {
-    if (props.action === 'edit') getPlaceholders()
+    if (props.meals) {
+      const activeMeal: Meal = props.meals.filter(meal => meal.id === mealId)[0]
+      setActiveMeal(activeMeal)
+    }
   }, [])
 
   return (
@@ -50,25 +32,25 @@ const Form: React.FC<CustomProps> = (props) => {
       <button id='specialBtn'><Link to='/' ref={closeRef}>×</Link></button>
 
       <input type='text' name='title' required
-      defaultValue={placeholder.title && placeholder.title} placeholder='Название'></input>
+      defaultValue={activeMeal.title && activeMeal.title} placeholder='Название' />
 
       <input type='number' name='measureValue'
-      defaultValue={placeholder.measure && placeholder.measure.value} placeholder='Количество'></input>
+      defaultValue={activeMeal.measure && activeMeal.measure.value} placeholder='Количество' />
       <input type='text' name='measureUnit'
-      defaultValue={placeholder.measure && placeholder.measure.unit} placeholder='г'></input>
+      defaultValue={activeMeal.measure && activeMeal.measure.unit} placeholder='г' />
 
       <input type='number' name='price'
-      defaultValue={placeholder.price && placeholder.price}  placeholder='Цена'></input>
+      defaultValue={activeMeal.price && activeMeal.price}  placeholder='Цена' />
 
       <input type='text' name='emoji'
-      defaultValue={placeholder.emoji && placeholder.emoji}  placeholder='Эмоджи ❤️'></input>
+      defaultValue={activeMeal.emoji && activeMeal.emoji}  placeholder='Эмоджи ❤️' />
 
       <label>Изображение</label>
-      <Widget onChange={(file) => getUploadcareId(file)} publicKey='123123bb93b5f37445a5' />
+      <Widget onChange={(file) => setActiveMeal({...activeMeal, uploadcareId: file.uuid})} publicKey='123123bb93b5f37445a5' />
       <input type='hidden' role='uploadcare-uploader' />
 
       <select name='kind'>
-        <option value={placeholder.kind ? placeholder.kind : ''}>{placeholder.kind ? placeholder.kind : 'Тип'}</option>
+        <option value={activeMeal.kind ? activeMeal.kind : ''}>{activeMeal.kind ? activeMeal.kind : 'Тип'}</option>
         <option value='drink'>Напиток</option>
         <option value='hotDrink'>Горячий напиток</option>
         <option value='soup'>Суп</option>
@@ -81,7 +63,7 @@ const Form: React.FC<CustomProps> = (props) => {
       </select>
 
       <select name='state'>
-        <option value={placeholder.state ? placeholder.state : ''}>{placeholder.state ? placeholder.state : 'Состояние'}</option>
+        <option value={activeMeal.state ? activeMeal.state : ''}>{activeMeal.state ? activeMeal.state : 'Состояние'}</option>
         <option value='draft'>Черновик</option>
         <option value='elaborating'>В проработке</option>
         <option value='elaborated'>Проработано</option>
@@ -89,7 +71,7 @@ const Form: React.FC<CustomProps> = (props) => {
         <option value='archive'>Архив</option>
       </select>
 
-      <button type='submit' value='submit'>{props.action === 'create' ? 'Добавить' : 'Сохранить'}</button>
+      <button type='submit' value='submit'>{props.meals ? 'Сохранить' : 'Добавить'}</button>
     </form>
   )
 }
