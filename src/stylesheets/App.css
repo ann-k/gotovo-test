@@ -1,26 +1,94 @@
-.App {
-  text-align: center;
+.Home {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px 20px;
 }
 
-.HomeButtons {
+.Nav {
+  position: fixed;
+  top: 0px;
+  left: 0;
+  z-index: 10;
+  background-color: rgb(255, 255, 255);
+  border-bottom: 1px solid rgb(247, 247, 247);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 12px -3px;
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 80vw;
-  margin: 20px auto 0;
+  width: 100vw;
+  height: 40px;
+}
+
+.Category {
+  margin-bottom: 90px;
+}
+
+.Category .Title {
+  margin-bottom: 20px;
 }
 
 .Meal {
-  border: 1px solid lightgrey;
-  width: 80vw;
-  margin: 0 auto 20px;
-  padding: 8px;
-  border-radius: 4px;
+  display: flex;
+  align-items: center;
   text-align: left;
 }
 
-.Meal button {
-  font-size: 12px;
+.Meal .Pic {
+  height: 180px;
+  width: 180px;
+}
+
+.Meal .Info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 10px;
+}
+
+.Meal .Title {
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.Meal .Title h3 {
+  line-height: 20px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+
+.Meal .Measure {
+  font-size: 13px;
+  color: lightgrey;
+  margin: 0px 0px 0px 4px;
+  font-weight: normal;
+}
+
+.Meal .Price {
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 19px;
+  white-space: nowrap;
+  padding: 10px 15px;
+  user-select: none;
+  /* position: relative; */
+  min-width: 86px;
+  border: 2px solid black;
+  border-radius: 50px;
+  /* background-color: white; */
+  /* color: black; */
+}
+
+.Meal .Emoji {
+  font-size: 20px;
+  margin-left: 12px;
+}
+
+.Meal .EditBtn {
+  /* font-size: 12px; */
+  display: none;
 }
 
 .Form {
@@ -45,6 +113,14 @@
 
 .Form button {
   margin-bottom: 16px;
+  /* border: 2px solid black; */
+  background-color: black;
+  color: white;
+  border-radius: 50px;
+}
+
+.Form button a {
+  color: white;
 }
 
 .Form button[type=submit] {
@@ -61,10 +137,10 @@
 
 @media only screen and (min-width: 600px) {
   .Meal {
-    width: 50vw;
+    /* width: 50vw; */
   }
   .Form {
-    width: 80vw;
+    /* width: 80vw; */
   }
 }
 

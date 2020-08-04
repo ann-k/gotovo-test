@@ -48,31 +48,26 @@ const Form: React.FC<CustomProps> = (props) => {
     <form className='Form' onSubmit={(e) => handleSubmit(e)}>
       <button id='closeBtn'><Link to='/' ref={closeRef}>×</Link></button>
 
-      <label>Название</label>
       <input type='text' name='title' required
-      defaultValue={placeholder.title && placeholder.title}></input>
+      defaultValue={placeholder.title && placeholder.title} placeholder='Название'></input>
 
-      <label>Количество</label>
       <input type='number' name='measureValue'
-      defaultValue={placeholder.measure && placeholder.measure.value}></input>
+      defaultValue={placeholder.measure && placeholder.measure.value} placeholder='Количество'></input>
       <input type='text' name='measureUnit'
-      defaultValue={placeholder.measure ? placeholder.measure.unit : 'г'}></input>
+      defaultValue={placeholder.measure && placeholder.measure.unit} placeholder='г'></input>
 
-      <label>Цена</label>
       <input type='number' name='price'
-      defaultValue={placeholder.price && placeholder.price}></input>
+      defaultValue={placeholder.price && placeholder.price}  placeholder='Цена'></input>
 
-      <label>Эмоджи <span role='img' aria-label='sparks'>❤️</span></label>
       <input type='text' name='emoji'
-      defaultValue={placeholder.emoji && placeholder.emoji}></input>
+      defaultValue={placeholder.emoji && placeholder.emoji}  placeholder='Эмоджи ❤️'></input>
 
       <label>Изображение</label>
       <Widget onChange={(file) => getUploadcareId(file)} publicKey='123123bb93b5f37445a5' />
       <input type='hidden' role='uploadcare-uploader' />
 
-      <label>Тип</label>
       <select name='kind'>
-        <option value={placeholder.kind ? placeholder.kind : ''}>{placeholder.kind ? placeholder.kind : 'Выбрать'}</option>
+        <option value={placeholder.kind ? placeholder.kind : ''}>{placeholder.kind ? placeholder.kind : 'Тип'}</option>
         <option value='drink'>Напиток</option>
         <option value='hotDrink'>Горячий напиток</option>
         <option value='soup'>Суп</option>
@@ -84,9 +79,8 @@ const Form: React.FC<CustomProps> = (props) => {
         <option value='garnish'>Гарнир</option>
       </select>
 
-      <label>Состояние</label>
       <select name='state'>
-        <option value={placeholder.state ? placeholder.state : ''}>{placeholder.state ? placeholder.state : 'Выбрать'}</option>
+        <option value={placeholder.state ? placeholder.state : ''}>{placeholder.state ? placeholder.state : 'Состояние'}</option>
         <option value='draft'>Черновик</option>
         <option value='elaborating'>В проработке</option>
         <option value='elaborated'>Проработано</option>

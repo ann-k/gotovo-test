@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import fb from './../firebaseConfig'
 
@@ -12,7 +12,9 @@ declare global {
 
 function Auth() {
   let captchaRef = useRef<HTMLDivElement>(null)
-  let phoneNumberRef = useRef<HTMLInputElement>(null)
+  const phoneNumberRef = useRef<HTMLInputElement>(null)
+  const [phoneNumberFormDisabled, disablePhoneNumberForm ] = useState<boolean>(false)
+  const [codeFormDisabled, disableCodeForm ] = useState<boolean>(true)
 
   useEffect(() => {
     window.recaptchaVerifier = new fb.auth.RecaptchaVerifier(captchaRef.current);
@@ -27,6 +29,8 @@ function Auth() {
       // SMS sent. Prompt user to type the code from the message, then sign the
       // user in with confirmationResult.confirm(code)
       console.log('SMS sent')
+      disablePhoneNumberForm(true)
+      disableCodeForm(false)
       window.confirmationResult = confirmationResult
     }).catch(function (error) {
       // Error; SMS not sent
@@ -51,13 +55,13 @@ function Auth() {
     <div className='Auth Form'>
       <button id='closeBtn'><Link to='/'>×</Link></button>
 
-      <form className='' onSubmit={(e) => onSignInSubmit(e)}>
+      <form onSubmit={(e) => onSignInSubmit(e)}>
         <label>Номер телефона</label>
         <input type='tel' name='tel' ref={phoneNumberRef}></input>
         <div ref={captchaRef}></div>
-        <button type='submit' value='submit'>Получить код</button>
+        <button className={phoneNumberFormDisabled ? 'disabled' : ''} type='submit' value='submit'>Получить код</button>
       </form>
-      <form className='' onSubmit={(e) => getCodeFromUserInput(e)}>
+      <form className={codeFormDisabled ? 'disabled' : ''} onSubmit={(e) => getCodeFromUserInput(e)}>
         <label>Код</label>
         <input type='number' name='code'></input>
         <button type='submit' value='submit'>Готово</button>

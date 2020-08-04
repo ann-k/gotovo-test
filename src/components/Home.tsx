@@ -39,7 +39,7 @@ function Home() {
 
   return (
     <div className='Home'>
-      <div className='HomeButtons'>
+      <nav className='Nav'>
         <button>
           <Link to='/create'>Добавить блюдо</Link>
         </button>
@@ -47,22 +47,30 @@ function Home() {
         <button>
           <Link to='/auth'>Войти</Link>
         </button>
-      </div>
+      </nav>
 
       {categories.map((category, index) => {
         return (
-          <div key={index}>
-            <h2>{category.title}</h2>
+          <div className='Category' key={index}>
+            <h2 className='Title'>{category.title}</h2>
             {meals.filter(meal => true) // TODO: Filter meals by categories
               .map((meal, index) => {
                 // TODO: Get image link from uploadecare with uuid
                 return (
                   <div className='Meal' key={index}>
-                    <h4>{meal.emoji} {meal.title}</h4>
-                    <p>{meal.price && meal.price + ' ₽'}</p>
-                    <p>{meal.measure && meal.measure.value} {meal.measure && meal.measure.unit}</p>
-                    <button><Link to={`/edit/${meal.title}`}>Редактировать блюдо</Link></button>
-                    <br/>
+                    <picture>
+                      <img className='Pic' src='test.jpg' alt='Food' />
+                    </picture>
+                    <div className='Info'>
+                      <div className='Title'>
+                        <h3>{meal.title} <small className='Measure'>{meal.measure && meal.measure.value} {meal.measure && meal.measure.unit}</small></h3>
+                      </div>
+                      <div>
+                        <button className='Price'>{meal.price && meal.price + ' ₽'}</button>
+                        <span className='Emoji'>{meal.emoji} </span>
+                      </div>
+                      <button className='EditBtn'><Link to={`/edit/${meal.title}`}>Редактировать блюдо</Link></button>
+                    </div>
                   </div>
                 )
               })
