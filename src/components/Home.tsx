@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Meal, Category } from './../types'
+import './../stylesheets/Home.css'
 import fb from './../firebaseConfig'
 const db = fb.firestore()
 const axios = require('axios').default
@@ -66,7 +67,7 @@ const Home: React.FC<CustomProps> = (props) => {
                 return (
                   <div className='Meal' key={index}>
                     <picture>
-                      <img className='Pic' src='test.jpg' alt='Food' />
+                      <img className='Pic' src={`https://ucarecdn.com/${meal.uploadcareId}/-/resize/x360/-/format/auto/`} alt={meal.title} />
                     </picture>
                     <div className='Info'>
                       <div className='Title'>

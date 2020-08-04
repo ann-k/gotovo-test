@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { Widget } from '@uploadcare/react-widget'
 
 import { Meal } from './../types'
+import './../stylesheets/Form.css'
 import fb from './../firebaseConfig'
 const db = fb.firestore()
 

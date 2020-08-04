@@ -1,0 +1,93 @@
+.Home {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 80px 20px;
+}
+
+.Nav {
+  position: fixed;
+  top: 0px;
+  left: 0;
+  z-index: 10;
+  background-color: rgb(255, 255, 255);
+  border-bottom: 1px solid rgb(247, 247, 247);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 12px -3px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100vw;
+  height: 40px;
+}
+
+.Category {
+  margin-bottom: 90px;
+}
+
+.Category .Title {
+  margin-bottom: 20px;
+}
+
+.Meal {
+  display: flex;
+  align-items: center;
+  position: relative;
+  text-align: left;
+}
+
+.Meal .Pic {
+  width: 180px;
+  height: 180px;
+  margin-left: -14px;
+}
+
+.Meal .Info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 10px;
+}
+
+.Meal .Title {
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.Meal .Title h3 {
+  line-height: 20px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.Meal .Measure {
+  font-size: 13px;
+  color: lightgrey;
+  margin: 0 0 0 4px;
+  font-weight: normal;
+}
+
+.Meal .Price {
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 19px;
+  white-space: nowrap;
+  padding: 10px 15px;
+  user-select: none;
+  min-width: 86px;
+  border: 2px solid black;
+  border-radius: 50px;
+}
+
+.Meal .Emoji {
+  font-size: 20px;
+  margin-left: 12px;
+}
+
+.Meal .EditBtn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: black;
+  border-radius: 50px;
+}
