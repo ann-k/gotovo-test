@@ -46,7 +46,7 @@ const Form: React.FC<CustomProps> = (props) => {
 
   return (
     <form className='Form' onSubmit={(e) => handleSubmit(e)}>
-      <button id='closeBtn'><Link to='/' ref={closeRef}>×</Link></button>
+      <button id='specialBtn'><Link to='/' ref={closeRef}>×</Link></button>
 
       <input type='text' name='title' required
       defaultValue={placeholder.title && placeholder.title} placeholder='Название'></input>

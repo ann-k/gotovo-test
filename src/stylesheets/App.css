@@ -30,6 +30,7 @@
 }
 
 .Meal {
+  position: relative;
   display: flex;
   align-items: center;
   text-align: left;
@@ -87,8 +88,11 @@
 }
 
 .Meal .EditBtn {
-  /* font-size: 12px; */
-  display: none;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: black;
+  border-radius: 50px;
 }
 
 .Form {
@@ -127,7 +131,7 @@
   width: 100%;
 }
 
-.Form #closeBtn {
+#specialBtn {
   position: absolute;
   top: 16px;
   right: 16px;

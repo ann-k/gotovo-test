@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import fb from './../firebaseConfig'
 
@@ -10,7 +10,11 @@ declare global {
   }
 }
 
-function Auth() {
+interface CustomProps {
+  updateUser: (e: any) => void;
+}
+
+const Auth: React.FC<CustomProps> = (props) => {
   let captchaRef = useRef<HTMLDivElement>(null)
   const phoneNumberRef = useRef<HTMLInputElement>(null)
   const [phoneNumberFormDisabled, disablePhoneNumberForm ] = useState<boolean>(false)
@@ -19,6 +23,18 @@ function Auth() {
   useEffect(() => {
     window.recaptchaVerifier = new fb.auth.RecaptchaVerifier(captchaRef.current);
   }, [])
+
+  fb.auth().onAuthStateChanged((user) => {
+    if (user) {
+      console.log('User is signed in.')
+      props.updateUser(true)
+      localStorage.setItem('user', 'true')
+    } else {
+      console.log('No user is signed in.')
+      props.updateUser(false)
+      localStorage.setItem('user', 'false')
+    }
+  })
 
   const onSignInSubmit = (e?: any) => {
     e.preventDefault()
@@ -53,7 +69,7 @@ function Auth() {
 
   return (
     <div className='Auth Form'>
-      <button id='closeBtn'><Link to='/'>×</Link></button>
+      <button id='specialBtn'><Link to='/'>×</Link></button>
 
       <form onSubmit={(e) => onSignInSubmit(e)}>
         <label>Номер телефона</label>

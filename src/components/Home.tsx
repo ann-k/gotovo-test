@@ -6,7 +6,11 @@ import fb from './../firebaseConfig'
 const db = fb.firestore()
 const axios = require('axios').default
 
-function Home() {
+interface CustomProps {
+  user: boolean;
+}
+
+const Home: React.FC<CustomProps> = (props) => {
   const [meals, setMeals] = useState<Meal[]>([])
   const [categories, setCategories] = useState<Category[]>([])
 
@@ -41,7 +45,10 @@ function Home() {
     <div className='Home'>
       <nav className='Nav'>
         <button>
-          <Link to='/create'>Добавить блюдо</Link>
+        {props.user
+          ? <Link to='/create'>Добавить блюдо</Link>
+          : null
+        }
         </button>
 
         <button>
@@ -69,8 +76,11 @@ function Home() {
                         <button className='Price'>{meal.price && meal.price + ' ₽'}</button>
                         <span className='Emoji'>{meal.emoji} </span>
                       </div>
-                      <button className='EditBtn'><Link to={`/edit/${meal.title}`}>Редактировать блюдо</Link></button>
                     </div>
+                    {props.user
+                      ? <button className='EditBtn' id='specialBtn'><Link to={`/edit/${meal.title}`}><span role='img' aria-label='edit'>✏️</span></Link></button>
+                      : null
+                    }
                   </div>
                 )
               })

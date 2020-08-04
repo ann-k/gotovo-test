@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import { Meal } from './../types'
@@ -12,6 +12,12 @@ import fb from './../firebaseConfig'
 const db = fb.firestore()
 
 function App() {
+  const [user, setUser] = useState<boolean>(localStorage.getItem('user') == 'true' || false)
+
+  const updateUser = (bool: boolean) => {
+    setUser(bool)
+  }
+
   const createOrUpdateMeal = async (e: any, activeMealId: string, uploadcareId: string) => {
     e.preventDefault()
 
@@ -44,7 +50,7 @@ function App() {
       <div className='App'>
         <Switch>
           <Route path='/auth'>
-            <Auth />
+            <Auth updateUser={updateUser} />
           </Route>
           <Route path='/create'>
             <Form createOrUpdateMeal={createOrUpdateMeal} action={'create'} />
@@ -53,7 +59,7 @@ function App() {
             <Form createOrUpdateMeal={createOrUpdateMeal} action={'edit'}/>
           </Route>
           <Route path='/'>
-            <Home />
+            <Home user={user}/>
           </Route>
         </Switch>
       </div>
