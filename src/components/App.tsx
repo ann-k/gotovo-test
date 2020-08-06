@@ -13,7 +13,7 @@ const db = fb.firestore()
 function App() {
   const [meals, setMeals] = useState<Meal[]>([])
   const [categories, setCategories] = useState<Category[]>([])
-  const [user, setUser] = useState<boolean>(localStorage.getItem('user') == 'true' || false)
+  const [user, setUser] = useState<boolean>(localStorage.getItem('user') === 'true' || false)
 
   const updateUser = (bool: boolean) => {
     setUser(bool)
@@ -26,6 +26,7 @@ function App() {
     const data: Meal = {
       title: e.target.title.value,
       price: e.target.price.value,
+      categories: [{ref: e.target.categories.value}],
       measure: {
         unit: e.target.measureUnit.value,
         value: e.target.measureValue.value,
@@ -50,24 +51,24 @@ function App() {
     db.collection('categories').onSnapshot(querySnapshot => {
       const newCategories: Category[] = []
       querySnapshot.forEach(doc => {
-        newCategories.push(doc.data() as Category)
+        const data = doc.data()
+        newCategories.push({
+          ...data,
+          id: doc.id,
+        } as Category)
       })
       setCategories(newCategories)
     }, err => console.log(`Encountered error: ${err}`))
   }
 
   const getMeals = () => {
-    db.collection('meals').onSnapshot(querySnapshot => {
+    db.collection('meals').onSnapshot(async querySnapshot => {
       const newMeals: Meal[] = []
       querySnapshot.forEach(doc => {
         const data = doc.data()
         newMeals.push({
           ...data,
-          id: doc.id,
-          // categories: doc.data().categories.map((category: any) => ({
-          //   ...category,
-         // ...category.ref.get()
-          // }))
+          id: doc.id
         })
       })
       setMeals(newMeals)

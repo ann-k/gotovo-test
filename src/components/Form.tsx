@@ -34,12 +34,18 @@ const Form: React.FC<CustomProps> = (props) => {
       <input type='text' name='title' required
       defaultValue={activeMeal.title && activeMeal.title} placeholder='Название' />
 
-      <input type='number' name='measureValue'
+      <select name='categories' required>
+        <option value=''>Категория</option>
+        <option value='B3CBHatjmrm8BhfjqojS'>Завтрак</option>
+        <option value='knVkORG3FGIdU0H4lRCX'>Обед</option>
+      </select>
+
+      <input type='number' name='measureValue' required
       defaultValue={activeMeal.measure && activeMeal.measure.value} placeholder='Количество' />
-      <input type='text' name='measureUnit'
+      <input type='text' name='measureUnit' required
       defaultValue={activeMeal.measure && activeMeal.measure.unit} placeholder='г' />
 
-      <input type='number' name='price'
+      <input type='number' name='price' required
       defaultValue={activeMeal.price && activeMeal.price}  placeholder='Цена' />
 
       <input type='text' name='emoji'

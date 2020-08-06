@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom'
 import { Meal, Category } from './../types'
 import './../stylesheets/Home.css'
 
+import fb from './../firebaseConfig'
+const db = fb.firestore()
+
 interface CustomProps {
   user: boolean;
   categories: Category[];
@@ -30,8 +33,12 @@ const Home: React.FC<CustomProps> = (props) => {
         return (
           <div className='Category' key={index}>
             <h2 className='Title'>{category.title}</h2>
-            {props.meals.filter(meal => true) // TODO: Filter meals by categories
-              .map((meal, index) => {
+            {props.meals.filter(meal => {
+              if (meal.categories) {
+                const mealCategoriesRefs = meal.categories.map((mealCategory) => String(mealCategory.ref))
+                return mealCategoriesRefs.includes(category.id)
+              } else return false
+            }).map((meal, index) => {
                 return (
                   <div className='Meal' key={index}>
                     <picture>
